@@ -5,7 +5,7 @@ import { Text, View, TextInput,
 import { Ionicons } from '@expo/vector-icons';
 
 import styles from "./styles";
-import Contato from './componentes/CampoSenha';
+import CampoSenha from './componentes/CampoSenha';
 
 import {
   createTable,
@@ -34,11 +34,20 @@ export default function App() {
   const [total, setTotal] = useState(0);
   let tabelasCriadas = false;
 
+
   useEffect(() => {
      console.log('useeffect processado!');
-     processamentoUseEffect(); //necessário método pois aqui não pode utilizar await...
+     if (!tabelasCriadas)
+      processamentoUseEffect(); //necessário método pois aqui não pode utilizar await...
+
+      VerificarTotal();
    }, [])
 
+
+   async function VerificarTotal()
+   {
+      setTotal(await getTotal())
+   }
    async function processamentoUseEffect() {
     if (!tabelasCriadas) {
       console.log("Verificando necessidade de criar tabelas...");
@@ -48,7 +57,7 @@ export default function App() {
 
     console.log("UseEffect...");
     await carregaDados();
-    setTotal(await getTotal())
+    
   }
   
    function createUniqueId() {
@@ -285,6 +294,7 @@ export default function App() {
   {
     console.log("apertou senha")
     setIsPasswordVisible(!isPasswordVisible)
+    console.log(isPasswordVisible)
 
   }
   function btnMostraConfiSenha()
@@ -337,36 +347,10 @@ export default function App() {
 
       
       <View style={styles.containerRow}>
-        <View style={styles.containerCampoTextoSenha}>
-        <Text style={styles.legendaSenha}>Senha</Text>
-          <View style={styles.containerSenha}>    
-              <TouchableOpacity style={styles.icon} onPress={()=>btnMostraSenha()}> 
-                {isPasswordVisible?<Ionicons name="eye-off-sharp" size={24} color="white" />:
-                <Ionicons name="eye-sharp" size={24} color="white"/>}
-              </TouchableOpacity>  
-              <TextInput 
-                style={styles.caixaTextoSenha}
-                secureTextEntry={isPasswordVisible}
-                keyboardType='ascii-capable'
-                onChangeText={(texto)=> setSenha(texto)}
-                value={senha} />
-          </View>
-        </View>
-        <View style={styles.containerCampoTextoSenha}>
-        <Text style={styles.legendaSenha}>Confirmar Senha</Text>
-          <View style={styles.containerSenha}>    
-              <TouchableOpacity style={styles.icon} onPress={()=>btnMostraConfiSenha()}> 
-                {isPasswordConfVisible?<Ionicons name="eye-off-sharp" size={24} color="white" />:
-                <Ionicons name="eye-sharp" size={24} color="white"/>}
-              </TouchableOpacity>  
-              <TextInput 
-                style={styles.caixaTextoSenha}
-                secureTextEntry={isPasswordConfVisible}
-                keyboardType='ascii-capable'
-                onChangeText={(texto)=> setConfirmarSenha(texto)}
-                value={confirmarSenha} />
-          </View>
-        </View>
+        <CampoSenha titulo='Senha' funcaoMostrarSenha={btnMostraSenha} senha={senha} 
+          atualizaSenha={(texto)=>setSenha(texto)} isPasswordVisible={isPasswordVisible} />
+        <CampoSenha titulo='Confirmar Senha' funcaoMostrarSenha={btnMostraConfiSenha} senha={confirmarSenha} 
+          atualizaSenha={(texto)=>setConfirmarSenha(texto)} isPasswordVisible={isPasswordConfVisible} />      
       </View>
 
       <View style={styles.containerRow}>

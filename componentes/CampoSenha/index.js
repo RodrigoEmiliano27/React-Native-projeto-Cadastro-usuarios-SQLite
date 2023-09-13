@@ -1,5 +1,5 @@
 import {
-     Text,TouchableOpacity, View
+     Text,TouchableOpacity,TextInput, View
 } from 'react-native';
 
 import styles from './styles';
@@ -11,7 +11,7 @@ export default function CampoSenha({titulo, funcaoMostrarSenha,senha, atualizaSe
         <View style={styles.containerCampoTextoSenha}>
           <Text style={styles.legendaSenha}>{titulo}</Text>
           <View style={styles.containerSenha}>    
-              <TouchableOpacity style={styles.icon} onPress={funcaoMostrarSenha}> 
+              <TouchableOpacity style={styles.icon} onPress={()=>funcaoMostrarSenha()}> 
                 {isPasswordVisible?<Ionicons name="eye-off-sharp" size={24} color="white" />:
                 <Ionicons name="eye-sharp" size={24} color="white"/>}
               </TouchableOpacity>  

@@ -15,13 +15,6 @@ const styles = StyleSheet.create({
       height:'15%',
       width: 'auto',
     },
-    containerCampoTextoSenha: {
-      backgroundColor: '#1d0f6e',
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start',
-      height:'auto',
-      width: '50%',
-    },
     sombra:{
       shadowColor: "#ffffff",
       shadowOffset: {
@@ -31,12 +24,6 @@ const styles = StyleSheet.create({
       shadowOpacity:  0.21,
       shadowRadius: 7.68,
       elevation: 10
-    },
-    containerSenha: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      height:'auto',
-      width: '100%',
     },
     containerRow: {
       flexDirection:"row",
@@ -88,12 +75,6 @@ const styles = StyleSheet.create({
       backgroundColor:'black',
       width:'100%'
     },
-    legendaSenha: {
-      fontSize: 20,
-      color: 'white',
-      fontWeight: '500',
-      marginTop:-10
-    },
     legendaBtnJogarNovamente: {
       fontSize:20,
       color: 'black',
@@ -101,21 +82,6 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontWeight: '500',
     },
-    caixaTextoSenha: {
-        flex:1,
-        fontSize:20,
-        color: 'white',
-        fontWeight: '500',
-        fontStyle: 'italic',
-        color: 'white',
-        width: 150,
-        height: 40,
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 10,
-        marginRight:5,
-        marginLeft:5
-      },
     caixaTexto: {
       fontSize:20,
       color: 'white',
@@ -173,11 +139,6 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
       marginLeft: 10,
-    },
-    icon: {
-      position: 'absolute',
-      right: 10, // Adjust this value to control the icon's position
-      zIndex:1
     },
   
   });
