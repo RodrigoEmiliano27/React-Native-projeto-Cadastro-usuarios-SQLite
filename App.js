@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Text, View, TextInput, 
-  TouchableOpacity, Keyboard,Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Text, View, 
+   Keyboard,Alert } from 'react-native';
+
 
 import styles from "./styles";
-import CampoSenha from './componentes/CampoSenha';
+import CampoSenha from './componentes/CampoSenha/CampoSenha';
+import LinhaDupla from './componentes/LinhaDupla/LinhaDupla';
+import BotaoComTexto from './componentes/BotaoComTexto/BotaoComTexto';
+import TextInputComLabel from './componentes/TextInputComLabel/TextInputComLabel';
 
 import {
   createTable,
@@ -308,69 +311,29 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+
       <View style={[styles.containerTitulo,styles.sombra]}>
         <Text style={styles.titulo}>Cadastro de usuários</Text>
       </View>
-      <View style={styles.containerCampoTexto}>
-        <Text style={styles.legenda}>Código</Text>
-        <TextInput 
-          style={styles.caixaTexto}
-          keyboardType='decimal-pad'
-          onChangeText={(texto)=> setCodigo(texto)}
-          value={codigo}
-        >
-        </TextInput>
-      </View>
 
-      <View style={styles.containerCampoTexto}>
-        <Text style={styles.legenda}>Nome</Text>
-        <TextInput 
-          style={styles.caixaTexto}
-          keyboardType='ascii-capable'
-          onChangeText={(texto)=> setNome(texto)}
-          value={nome}
-        >
-        </TextInput>
-      </View>
-
-      <View style={styles.containerCampoTexto}>
-        <Text style={styles.legenda}>Email</Text>
-        <TextInput 
-          style={styles.caixaTexto}
-          keyboardType='ascii-capable'
-          onChangeText={(texto)=> setEmail(texto)}
-          value={email}
-        >
-        </TextInput>
-      </View>
-
-
+      <TextInputComLabel label='Código' onchange={(texto)=>setCodigo(texto)} name={codigo} />
+      <TextInputComLabel label='Nome' onchange={(texto)=>setNome(texto)} name={nome} />
+      <TextInputComLabel label='Email' onchange={(texto)=>setEmail(texto)} name={email} />
       
-      <View style={styles.containerRow}>
-        <CampoSenha titulo='Senha' funcaoMostrarSenha={btnMostraSenha} senha={senha} 
-          atualizaSenha={(texto)=>setSenha(texto)} isPasswordVisible={isPasswordVisible} />
-        <CampoSenha titulo='Confirmar Senha' funcaoMostrarSenha={btnMostraConfiSenha} senha={confirmarSenha} 
-          atualizaSenha={(texto)=>setConfirmarSenha(texto)} isPasswordVisible={isPasswordConfVisible} />      
-      </View>
+       <LinhaDupla 
+        item1={<CampoSenha titulo='Senha' funcaoMostrarSenha={btnMostraSenha} senha={senha} 
+          atualizaSenha={(texto)=>setSenha(texto)} isPasswordVisible={isPasswordVisible} />}
+        item2={<CampoSenha titulo='Confirmar Senha' funcaoMostrarSenha={btnMostraConfiSenha} senha={confirmarSenha} 
+          atualizaSenha={(texto)=>setConfirmarSenha(texto)} isPasswordVisible={isPasswordConfVisible} />}/>
 
-      <View style={styles.containerRow}>
-        <TouchableOpacity style={[styles.botao,styles.sombra]} onPress={() => salvaDados()}> 
-          <Text style={styles.legenda}>Salvar</Text>       
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.botao,styles.sombra]} onPress={() => carregarUsuarios()}> 
-          <Text style={styles.legenda}>Carregar</Text>       
-        </TouchableOpacity>
-      </View>
+      <LinhaDupla 
+        item1={<BotaoComTexto texto='Salvar' clique={salvaDados} />} 
+        item2={<BotaoComTexto texto='Carregar' clique={carregarUsuarios} />}/>
 
-      <View style={styles.containerRow}>
-        <TouchableOpacity style={[styles.botao,styles.sombra]} onPress={() => apagarTudo()}> 
-            <Text style={styles.legenda}>Limpar</Text>       
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.botao,styles.sombra]} onPress={() => removerElemento()}> 
-          <Text style={styles.legenda}>Excluir usuário</Text>       
-        </TouchableOpacity>
-      </View>
-
+      <LinhaDupla 
+        item1={<BotaoComTexto texto='Limpar' clique={apagarTudo} />} 
+        item2={<BotaoComTexto texto='Excluir usuário' clique={removerElemento} />}/>
+      
       <Text style={styles.legendaResultado}>{"Total de registro(s) "+total}</Text>
 
       <StatusBar style="auto" />
