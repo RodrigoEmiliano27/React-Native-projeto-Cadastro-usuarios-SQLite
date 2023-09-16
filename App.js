@@ -30,7 +30,6 @@ export default function App() {
   const [email,setEmail] = useState("")
   const [senha,setSenha] = useState("")
   const [confirmarSenha,setConfirmarSenha] = useState("")
-  const [password, setPassword] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(true)
   const [isPasswordConfVisible, setisPasswordConfVisible] = useState(true)
   const [contatos, setContatos] = useState([]);
@@ -63,9 +62,6 @@ export default function App() {
     
   }
   
-   function createUniqueId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(0, 2);
-  }
 
   async function  carregaDados() {
     try {      
@@ -73,16 +69,6 @@ export default function App() {
         setContatos(contatos);      
     } catch (e) {
       Alert.alert(e.toString());
-    }
-  }
-
-  async function efetivaExclusao() {
-    try {
-      await excluiTodosContatos();
-      await carregaDados();
-    }
-    catch (e) {
-      Alert.alert(e);
     }
   }
 
@@ -228,23 +214,10 @@ export default function App() {
     } catch (e) {
       Alert.alert(e);
     }
+    setTotal(await getTotal())
   }
 
   
-  function editar(identificador) {
-    const contato = contatos.find(contato => contato.id == identificador);
-
-    if (contato) {
-      setCodigo(contato.id);
-      setNome(contato.nome);
-      setEmail(contato.email);
-      setSenha(contato.senha)
-      setConfirmarSenha(contato.confirmarSenha)
-    }
-
-    console.log(contato);
-  }
-
 
   async function limparCampos() {
     setCodigo("");
